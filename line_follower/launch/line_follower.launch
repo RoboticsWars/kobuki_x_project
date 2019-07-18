@@ -1,0 +1,13 @@
+<launch>
+    <arg name="rgb_image_topic" default="/camera/qhd/image_depth_rect">
+    <arg name="cmd_vel_topic" default="/cmd_vel_mux/input/teleop">
+    <!-- Detection node -->
+    <node pkg="line_follower" name="detection" type="detect" output="screen">
+        <remap from="/camera/rgb/image_raw" to="$(arg rgb_image_topic)"/>
+    </node>
+
+    <!-- Robot commands node -->
+    <node pkg="line_follower" name="Velocity" type="navig" output="screen">
+        <remap from="/cmd_vel" to"$(arg cmd_vel_topic)"/>
+    </node>
+</launch>
