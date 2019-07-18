@@ -9,5 +9,5 @@
     <arg name="map_file" value="$(arg map_file)"/>
   </include>
   <!-- Coffeebot -->
-  <node pkg="kobuki_x_description" type="coffee_bot_prototype.py" name="coffee_bot" output="screen" respawn="false"/>
+  <node pkg="kobuki_x_bringup" type="coffee_bot_prototype.py" name="coffee_bot" output="screen" respawn="false"/>
 </launch>
