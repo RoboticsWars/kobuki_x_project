@@ -7,7 +7,9 @@
       <license>TODO</license>
 
       <buildtool_depend>catkin</buildtool_depend>
-
+      <run_depend>kobuki_x_description</run_depend>
+      <run_depend>kobuki_x_bringup</run_depend>
+      <run_depend>line_follower</run_depend>
 
       <export>
         <metapackage/>
