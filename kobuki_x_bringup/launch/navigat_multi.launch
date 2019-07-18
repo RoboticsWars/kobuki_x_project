@@ -1,0 +1,3 @@
+<launch>
+  <node name="multi_mark" pkg="kobuki_x_bringup" type="show_mark.py" output="screen" />
+</launch>

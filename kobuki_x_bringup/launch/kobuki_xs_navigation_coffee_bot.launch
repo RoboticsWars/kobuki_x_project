@@ -3,7 +3,7 @@
   <arg name="rplidar_serial_port" default="/dev/rplidara2"/>
   <arg name="map_file" default="$(env TURTLEBOT_MAP_FILE)"/>
   <!--Bringups the base-->
-  <include file="$(find turtlebot_bringup)/launch/kobuki_xs_navigation.launch">
+  <include file="$(find kobuki_x_bringup)/launch/kobuki_xs_navigation.launch">
     <arg name="kobuki_serial_port" value="$(arg kobuki_serial_port)"/>
     <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
     <arg name="map_file" value="$(arg map_file)"/>
