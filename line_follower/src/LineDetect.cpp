@@ -11,7 +11,6 @@ LineDetect::LineDetect()
   std::string color_string;
   if(ros::param::get("~line_color", color_string))
   {
-//    std::cout<<"Line color is "<<color_string<<std::endl;
     ROS_INFO("Line color is %s.",color_string.c_str());
     LowerColor = color_map[color_string][0];
     UpperColor = color_map[color_string][1];
@@ -42,7 +41,7 @@ void LineDetect::imageCallback(const sensor_msgs::ImageConstPtr& msg)
   }
   catch (cv_bridge::Exception& e)
   {
-    ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
+    ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());//format error
   }
 }
 
@@ -130,5 +129,7 @@ int LineDetect::colorthresh(cv::Mat input)
   }
   // Output images viewed by the turtlebot
   imshow("Robot_View", input);
+  proc_img_msg=cv_bridge::CvImage(std_msgs::Header(), "bgr8", input).toImageMsg();//CVimage to ROS image
+  proc_img_pub.publish(proc_img_msg);//publish processed image
   return dir;
 }
