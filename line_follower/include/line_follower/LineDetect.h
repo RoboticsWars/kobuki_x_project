@@ -5,6 +5,8 @@
 #include <opencv2/opencv.hpp>
 #include <ros/ros.h>
 #include <std_msgs/Int32.h>
+#include <map>
+#include <vector>
 
 /**
 *@brief Line Detect class contains all the functions for image procesing and direction publishing
@@ -37,11 +39,16 @@ class LineDetect {
 
  private:
     ros::NodeHandle n;
-    cv::Scalar LowerYellow;
-    cv::Scalar UpperYellow;
+    cv::Scalar LowerColor{0 , 43, 46};//red section 1
+    cv::Scalar UpperColor{10, 255, 255};
+    cv::Scalar LowerRed{156,43,46};//red section 2
+    cv::Scalar UpperRed{180,255,255};
+    std::vector<cv::Scalar> color_range{LowerColor,UpperColor,LowerRed,UpperRed};
     cv::Mat img_hsv;
     cv::Mat img_mask;
     ros::Publisher dirPub{n.advertise<std_msgs::Int32>("/direction", 1)};
     ros::Subscriber sub{n.subscribe<sensor_msgs::Image>("/camera/rgb/image_raw",1,boost::bind(&LineDetect::imageCallback,this,_1))};
     std_msgs::Int32 dir_msg;
+    std::map<std::string,std::vector<cv::Scalar>> color_map{{"red",color_range},{"yellow",std::vector<cv::Scalar>{cv::Scalar{26,43,46},cv::Scalar{34,255,255}}},{"green",std::vector<cv::Scalar>{cv::Scalar{35,43,46},cv::Scalar{77,255,255}}},{"blue",std::vector<cv::Scalar>{cv::Scalar{100,43,46},cv::Scalar{124,255,255}}},{"white",std::vector<cv::Scalar>{cv::Scalar{0,0,221},cv::Scalar{180,30,255}}},{"black",std::vector<cv::Scalar>{cv::Scalar{0,0,0},cv::Scalar{180,255,46}}}};//a dictionary of HSV color
+    std::string strColor{"red"};
 };

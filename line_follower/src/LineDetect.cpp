@@ -6,8 +6,20 @@
 LineDetect::LineDetect()
 {
   ROS_INFO("Create a window.");
-  cv::namedWindow("Robot_View");
+  cv::namedWindow("Robot_View");//start a window to show images
   dir_msg.data=1;
+  std::string color_string;
+  if(ros::param::get("~line_color", color_string))
+  {
+//    std::cout<<"Line color is "<<color_string<<std::endl;
+    ROS_INFO("Line color is %s.",color_string.c_str());
+    LowerColor = color_map[color_string][0];
+    UpperColor = color_map[color_string][1];
+  }
+  else
+  {
+    ROS_INFO("Line color is red.");
+  }
 }
 
 LineDetect::~LineDetect()
@@ -52,11 +64,13 @@ int LineDetect::colorthresh(cv::Mat input)
   auto c_x = 0.0;
   // Detect all objects within the HSV range
   cv::cvtColor(input, img_hsv, CV_BGR2HSV);
-  LowerYellow = {0, 70, 50};
-  UpperYellow = {10, 255, 255};
-  //LowerYellow = {20, 100, 100};
-  //UpperYellow = {30, 255, 255};
-  cv::inRange(img_hsv, LowerYellow, UpperYellow, img_mask);
+  cv::inRange(img_hsv, LowerColor, UpperColor, img_mask);
+  if(strColor=="red")//red has 2 sections
+  {
+    cv::Mat img_mask2;
+    cv::inRange(img_hsv, color_map[strColor][2], color_map[strColor][3], img_mask2);
+    img_mask=img_mask+img_mask2;
+  }
   img_mask(cv::Rect(0, 0, w, 0.8*h)) = 0;
   // Find contours for better visualization
   cv::findContours(img_mask, v, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
