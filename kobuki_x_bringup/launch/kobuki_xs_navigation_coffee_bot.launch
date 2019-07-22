@@ -1,6 +1,8 @@
 <launch>
   <arg name="kobuki_serial_port" default="/dev/kobuki"/>
-  <arg name="rplidar_serial_port" default="/dev/rplidara2"/>
+  <arg name="lidar_type" default="$(env TURTLEBOT_3D_SENSOR)"/>
+  <arg if="$(eval arg('lidar_type') == 'kinect2_rplidar_s1')" name="rplidar_serial_port" default="/dev/rplidars1"/>
+  <arg if="$(eval arg('lidar_type') == 'kinect2_rplidar_a2')" name="rplidar_serial_port" default="/dev/rplidara2"/>
   <arg name="map_file" default="$(env TURTLEBOT_MAP_FILE)"/>
   <!--Bringups the base-->
   <include file="$(find kobuki_x_bringup)/launch/kobuki_xs_navigation.launch">

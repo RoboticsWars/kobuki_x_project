@@ -8,8 +8,8 @@
   <include file="$(find turtlebot_bringup)/launch/minimal.launch">
     <arg name="serialport" value="$(arg kobuki_serial_port)"/>
   </include>
-  <!--Launch the rplidar A2-->
-  <include file="$(find kobuki_x_description)/launch/rplidara2_for_kobuki_xs.launch">
+  <!--Launch the rplidar-->
+  <include if="$(eval arg('lidar_type') == 'kinect2_rplidar_a2')" file="$(find kobuki_x_description)/launch/rplidara2_for_kobuki_xs.launch">
     <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
   </include>
   <include if="$(eval arg('lidar_type') == 'kinect2_rplidar_s1')" file="$(find kobuki_x_description)/launch/rplidars1_for_kobuki_xs.launch">
