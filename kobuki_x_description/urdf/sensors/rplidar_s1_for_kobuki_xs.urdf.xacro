@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot name="sensor_rplidar_s1" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="sensor_rplidar_s1" params="parent">
+    <joint name="lidar_mount_joint" type="fixed">
+      <origin xyz="0 0 0.406" rpy="0 -3.141592653 0"/>
+      <parent link="${parent}"/>
+      <child link="lidar_mount_link"/>
+    </joint>
+    <link name="lidar_mount_link">
+      <visual>
+       <origin xyz="0.019 -0.054 0.04" rpy="1.570796327 0 1.570796327"/>
+        <geometry>
+         <mesh filename="package://turtlebot_description/meshes/sensors/rplidar-s1m1-r1.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+    </link>
+    <joint name="lidar_joint" type="fixed">
+      <origin xyz="0 0 0.032" rpy="0 0 0"/>
+      <parent link="lidar_mount_link"/>
+      <child link="laser"/>
+    </joint>
+    <link name="laser"/>
+  </xacro:macro>
+</robot>
