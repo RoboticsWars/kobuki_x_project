@@ -1,6 +1,8 @@
 <launch>
   <arg name="kobuki_serial_port" default="/dev/kobuki"/>
-  <arg name="rplidar_serial_port" default="/dev/rplidara2"/>
+  <arg name="lidar_type" default="$(env TURTLEBOT_3D_SENSOR)"/>
+  <arg if="$(eval arg('lidar_type') == 'kinect2_rplidar_s1')" name="rplidar_serial_port" default="/dev/rplidars1"/>
+  <arg if="$(eval arg('lidar_type') == 'kinect2_rplidar_a2')" name="rplidar_serial_port" default="/dev/rplidara2"/>
   <arg name="map_file" default="$(env TURTLEBOT_MAP_FILE)"/>
   <!--Bringups the base-->
   <include file="$(find turtlebot_bringup)/launch/minimal.launch">
@@ -8,6 +10,9 @@
   </include>
   <!--Launch the rplidar A2-->
   <include file="$(find kobuki_x_description)/launch/rplidara2_for_kobuki_xs.launch">
+    <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
+  </include>
+  <include if="$(eval arg('lidar_type') == 'kinect2_rplidar_s1')" file="$(find kobuki_x_description)/launch/rplidars1_for_kobuki_xs.launch">
     <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
   </include>
   <!--Launch the kinect2 and convert pointcloud to laser-->
