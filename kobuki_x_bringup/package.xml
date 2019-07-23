@@ -52,12 +52,15 @@
   <build_depend>roscpp</build_depend>
   <build_depend>rospy</build_depend>
   <build_depend>turtlebot_bringup</build_depend>
+  <!--build_depend>rosbridge_suite</build_depend-->
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>rospy</build_export_depend>
   <build_export_depend>turtlebot_bringup</build_export_depend>
+  <!--build_export_depend>rosbridge_suite</build_export_depend-->
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>turtlebot_bringup</exec_depend>
+  <!--exec_depend>rosbridge_suite</exec_depend-->
 
 
   <!-- The export tag contains other, unspecified, tags -->

@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   turtlebot_bringup
+  #rosbridge_suite
 )
 
 ## System dependencies are found with CMake's conventions
