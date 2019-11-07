@@ -1,0 +1,5 @@
+<launch>                                                                                                                                             
+
+	<arg name="urdf_file" default="$(find xacro)/xacro.py '$(find /kobuki_x_project/kobuki_x_description/urdf/bases/kobuki_xs.urdf.xacro'"/>
+	<param name="robot_description" command="$(arg urdf_file)" />                                                                                      
+</launch> 
