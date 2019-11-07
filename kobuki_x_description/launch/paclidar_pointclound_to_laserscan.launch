@@ -5,7 +5,7 @@
 	<node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
 
 		<remap from="cloud_in" to="/paclidar_pointclound"/>
-		<remap from="scan" to="/paclidar/scan"/>
+		<remap from="scan" to="/scan"/>
 		<rosparam>
 			# target_frame: rslidar # Leave disabled to output scan in pointcloud frame
 			transform_tolerance: 0.01
