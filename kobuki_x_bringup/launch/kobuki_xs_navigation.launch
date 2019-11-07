@@ -15,6 +15,8 @@
   <include if="$(eval arg('lidar_type') == 'kinect2_rplidar_s1')" file="$(find kobuki_x_description)/launch/rplidars1_for_kobuki_xs.launch">
     <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
   </include>
+  <include if="$(eval arg('lidar_type') == 'kinect2_paclidar')" file="$(find kobuki_x_description)/launch/paclidar_for_kobuki_xs.launch">
+  </include>
   <!--Launch the kinect2 and convert pointcloud to laser-->
   <include file="$(find kinect2_bridge)/launch/kinect2_cloudtolaser.launch"/>
   <!-- Map server -->

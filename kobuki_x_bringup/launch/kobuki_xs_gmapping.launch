@@ -15,6 +15,8 @@
   <include if="$(eval arg('lidar_type') == 'kinect2_rplidar_s1')" file="$(find kobuki_x_description)/launch/rplidars1_for_kobuki_xs.launch">
     <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
   </include>
+  <include if="$(eval arg('lidar_type') == 'kinect2_paclidar')" file="$(find kobuki_x_description)/launch/paclidar_for_kobuki_xs.launch">
+  </include>
   <!-- Gmapping -->
   <include file="$(arg custom_gmapping_launch_file)"/>
   <!-- Move base -->
