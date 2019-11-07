@@ -27,7 +27,7 @@
 		<param name="section_agl_end_5" value="0"/>
 	</node>
 
-	<include file="./paclidar_pointclound_to_laserscan.launch">
+	<include file="$(find kobuki_x_description)/launch/paclidar_pointclound_to_laserscan.launch">
 		<arg name="paclidar_pointclound" default="lidar_points"/>
 	</include>
 
