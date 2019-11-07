@@ -33,6 +33,7 @@
   </include>
   <!-- Move base -->
   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+  <include file="$(find kobuki_x_description))/launch/description.launch.xml">
   <!-- For nav2djs to display robot -->
   <node name="robot_pose_publisher" pkg="robot_pose_publisher" type="robot_pose_publisher" />
 </launch>
