@@ -1,9 +1,10 @@
 <launch>
 
 	<arg name="paclidar_ip" default="192.168.1.199"/>
+	<arg name="paclidar_pointclound" default="lidar_points"/>
 
 	<node pkg="lidar_driver" type="driver_node" name="driver_node" >
-		<param name="advertise_name" value="lidar_points" />
+		<param name="advertise_name" value="$(arg paclidar_pointclound)" />
 		<param name="control_name" value="lidar_control"/>
 		<param name="device_ip" value="$(arg paclidar_ip)" />
 		<param name="device_port" value="5000" />
@@ -25,4 +26,9 @@
 		<param name="section_agl_start_5" value="0"/>
 		<param name="section_agl_end_5" value="0"/>
 	</node>
+
+	<include file="./paclidar_pointclound_to_laserscan.launch">
+		<arg name="paclidar_pointclound" default="lidar_points"/>
+	</include>
+
 </launch>
