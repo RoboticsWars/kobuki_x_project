@@ -5,7 +5,7 @@
   <arg if="$(eval arg('lidar_type') == 'kinect2_rplidar_a2')" name="rplidar_serial_port" default="/dev/rplidara2"/>
   <arg name="custom_gmapping_launch_file" default="$(find turtlebot_navigation)/launch/includes/gmapping/gmapping.launch.xml"/>
   <!--Bringups the base-->
-  <include file="$(find turtlebot_bringup)/launch/minimal.launch">
+  <include file="$(find turtlebot_bringup)/launch/includes/mobile_base.launch.xml">
     <arg name="serialport" value="$(arg kobuki_serial_port)"/>
   </include>
   <!--Launch the rplidar A2-->
