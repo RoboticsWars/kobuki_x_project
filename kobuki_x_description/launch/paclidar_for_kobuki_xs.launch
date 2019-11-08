@@ -31,4 +31,7 @@
 		<arg name="paclidar_pointclound" default="lidar_points"/>
 	</include>
 
+	<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser4"
+		args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link /paclidar_link 100" />
+
 </launch>

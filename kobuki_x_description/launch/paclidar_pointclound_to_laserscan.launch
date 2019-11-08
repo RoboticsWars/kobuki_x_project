@@ -8,19 +8,19 @@
     <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
 
         <remap from="cloud_in" to="$(arg paclidar_pointclound)"/>
-        <remap from="scan" to="/scan"/>
+        <!--<remap from="scan" to="/scan"/>-->
         <rosparam>
-            target_frame: camera_link # Leave disabled to output scan in pointcloud frame
+            target_frame: paclidar_link # Leave disabled to output scan in pointcloud frame
             transform_tolerance: 0.01
-            min_height: 0.0
+            min_height: -1.0
             max_height: 1.0
 
-            angle_min: -1.5708 # -M_PI/2
-            angle_max: 1.5708 # M_PI/2
-            angle_increment: 0.0087 # M_PI/360.0
-            scan_time: 0.3333
-            range_min: 0.45
-            range_max: 4.0
+            angle_min: -2.35619445 # -135
+            angle_max: 2.35619445 # 135
+            angle_increment: 0.00218 # 
+            scan_time: 0.1
+            range_min: 0.05
+            range_max: 60.0
             use_inf: true
 
             # Concurrency level, affects number of pointclouds queued for processing and number of threads used
