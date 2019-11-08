@@ -28,10 +28,10 @@
 	</node>
 
 	<include file="$(find kobuki_x_description)/launch/paclidar_pointclound_to_laserscan.launch">
-		<arg name="paclidar_pointclound" default="lidar_points"/>
+		<arg name="paclidar_pointclound" default="$(arg paclidar_pointclound)"/>
 	</include>
 
-	<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser4"
+	<node pkg="tf" type="static_transform_publisher" name="base_link_to_paclidar"
 		args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link /paclidar_link 100" />
 
 </launch>
