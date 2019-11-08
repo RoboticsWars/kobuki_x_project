@@ -2,12 +2,12 @@
 
 <launch>
 
-    <arg name="paclidar_pointclound" default="lidar_points" />
+    <arg name="paclidar_pointclound" default="/lidar_driver/lidar_points" />
 
     <!-- run pointcloud_to_laserscan node -->
     <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
 
-        <remap from="cloud_in" to="/$(arg paclidar_pointclound)"/>
+        <remap from="cloud_in" to="$(arg paclidar_pointclound)"/>
         <remap from="scan" to="/scan"/>
         <rosparam>
             target_frame: paclidar_link # Leave disabled to output scan in pointcloud frame
