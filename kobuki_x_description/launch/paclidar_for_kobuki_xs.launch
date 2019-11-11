@@ -5,13 +5,13 @@
 
     <node pkg="lidar_driver" type="driver_node" name="driver_node" >
         <param name="advertise_name" value="$(arg paclidar_pointclound)" />
-        <param name="advertise_lidarScan_name" value="/scan" />
+        <param name="advertise_lidarScan_name" value="lidarScan" />
         <param name="control_name" value="lidar_control"/>
         <param name="device_ip" value="$(arg paclidar_ip)" />
         <param name="device_port" value="5000" />
         <param name="pc_port"     value="6000" />
         <param name="fps" value="10"/>
-        <param name="frame_id" value="/world"/>
+        <param name="frame_id" value="/paclidar_link"/>
         <param name="section_agl_start_1" value="0"/>
         <param name="section_agl_end_1" value="360"/>
 
