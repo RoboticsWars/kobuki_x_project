@@ -6,7 +6,7 @@
 
     <node pkg="lidar_driver" type="driver_node" name="driver_node" >
 		<!--<remap from="/lidar_driver/$(arg paclidar_lidarscan)" to="/scan"/>-->
-		<remap from="/scan" to="/lidar_driver/$(arg paclidar_lidarscan)" />
+		<!--<remap from="/scan" to="/lidar_driver/$(arg paclidar_lidarscan)" />-->
         <param name="advertise_name" value="$(arg paclidar_pointclound)" />
         <param name="advertise_lidarScan_name" value="$(arg paclidar_lidarscan)" />
         <param name="control_name" value="lidar_control"/>
