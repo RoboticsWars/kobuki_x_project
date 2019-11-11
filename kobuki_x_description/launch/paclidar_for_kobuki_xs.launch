@@ -3,32 +3,36 @@
 	<arg name="paclidar_ip" default="192.168.1.199"/>
 	<arg name="paclidar_pointclound" default="lidar_points"/>
 
-	<node pkg="lidar_driver" type="driver_node" name="driver_node" >
-		<param name="advertise_name" value="$(arg paclidar_pointclound)" />
-		<param name="control_name" value="lidar_control"/>
-		<param name="device_ip" value="$(arg paclidar_ip)" />
-		<param name="device_port" value="5000" />
-		<param name="pc_port"     value="6000" />
-		<param name="fps" value="10"/>
-		<param name="frame_id" value="/world"/>
-		<param name="section_agl_start_1" value="0"/>
-		<param name="section_agl_end_1" value="360"/>
+    <node pkg="lidar_driver" type="driver_node" name="driver_node" >
+        <param name="advertise_name" value="$(arg paclidar_pointclound)" />
+        <param name="advertise_lidarScan_name" value="/scan" />
+        <param name="control_name" value="lidar_control"/>
+        <param name="device_ip" value="$(arg paclidar_ip)" />
+        <param name="device_port" value="5000" />
+        <param name="pc_port"     value="6000" />
+        <param name="fps" value="10"/>
+        <param name="frame_id" value="/world"/>
+        <param name="section_agl_start_1" value="0"/>
+        <param name="section_agl_end_1" value="360"/>
 
-		<param name="section_agl_start_2" value="0"/>
-		<param name="section_agl_end_2" value="0"/>
+        <param name="section_agl_start_2" value="0"/>
+        <param name="section_agl_end_2" value="0"/>
 
-		<param name="section_agl_start_3" value="0"/>
-		<param name="section_agl_end_3" value="0"/>
+        <param name="section_agl_start_3" value="0"/>
+        <param name="section_agl_end_3" value="0"/>
 
-		<param name="section_agl_start_4" value="0"/>
-		<param name="section_agl_end_4" value="0"/>
+        <param name="section_agl_start_4" value="0"/>
+        <param name="section_agl_end_4" value="0"/>
 
-		<param name="section_agl_start_5" value="0"/>
-		<param name="section_agl_end_5" value="0"/>
+        <param name="section_agl_start_5" value="0"/>
+        <param name="section_agl_end_5" value="0"/>
+
+        <param name="point_cloud2_enable"   value="1"/>
+        <param name="laser_scan_enable"     value="1"/>
 	</node>
 
-	<include file="$(find kobuki_x_description)/launch/paclidar_pointclound_to_laserscan.launch">
-	</include>
+	<!-- <include file="$(find kobuki_x_description)/launch/paclidar_pointclound_to_laserscan.launch"> -->
+	<!-- </include> -->
 
 	<node pkg="tf" type="static_transform_publisher" name="base_link_to_paclidar"
 		args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link /paclidar_link 100" />
