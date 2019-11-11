@@ -2,10 +2,12 @@
 
 	<arg name="paclidar_ip" default="192.168.1.199"/>
 	<arg name="paclidar_pointclound" default="lidar_points"/>
+	<arg name="paclidar_lidarscan" default="lidarScan"/>
 
     <node pkg="lidar_driver" type="driver_node" name="driver_node" >
+		<remap from="/lidar_driver/$(arg paclidar_lidarscan)" to="/scan"/>
         <param name="advertise_name" value="$(arg paclidar_pointclound)" />
-        <param name="advertise_lidarScan_name" value="lidarScan" />
+        <param name="advertise_lidarScan_name" value="$(arg paclidar_lidarscan)" />
         <param name="control_name" value="lidar_control"/>
         <param name="device_ip" value="$(arg paclidar_ip)" />
         <param name="device_port" value="5000" />
