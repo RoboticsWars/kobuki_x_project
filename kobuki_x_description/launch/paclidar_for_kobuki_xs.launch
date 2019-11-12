@@ -5,8 +5,7 @@
 	<arg name="paclidar_lidarscan" default="lidarScan"/>
 
     <node pkg="lidar_driver" type="driver_node" name="driver_node" >
-		<!--<remap from="/lidar_driver/$(arg paclidar_lidarscan)" to="/scan"/>-->
-		<!--<remap from="/scan" to="/lidar_driver/$(arg paclidar_lidarscan)" />-->
+		<remap from="/lidar_driver/$(arg paclidar_lidarscan)" to="/scan"/>
         <param name="advertise_name" value="$(arg paclidar_pointclound)" />
         <param name="advertise_lidarScan_name" value="$(arg paclidar_lidarscan)" />
         <param name="control_name" value="lidar_control"/>
@@ -14,7 +13,7 @@
         <param name="device_port" value="5000" />
         <param name="pc_port"     value="6000" />
         <param name="fps" value="10"/>
-        <param name="frame_id" value="/paclidar_link"/>
+        <param name="frame_id" value="laser"/>
         <param name="section_agl_start_1" value="0"/>
         <param name="section_agl_end_1" value="360"/>
 
@@ -38,6 +37,6 @@
 	<!-- </include> -->
 
 	<node pkg="tf" type="static_transform_publisher" name="base_link_to_paclidar"
-		args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link /paclidar_link 100" />
+		args="0.0 0.0 0.0 0.0 0.0 0.0 /map /laser 100" />
 
 </launch>
