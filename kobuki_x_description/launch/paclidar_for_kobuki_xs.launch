@@ -29,7 +29,7 @@
         <param name="section_agl_start_5" value="0"/>
         <param name="section_agl_end_5" value="0"/>
 
-        <param name="point_cloud2_enable"   value="1"/>
+        <param name="point_cloud2_enable"   value="0"/>
         <param name="laser_scan_enable"     value="1"/>
 	</node>
 
@@ -38,7 +38,7 @@
 
 	<node pkg="tf" type="static_transform_publisher" name="base_link_to_paclidar"
 		args="0.0 0.0 0.1 0.0 0.0 0.0 /base_link /paclidar_link 100" />
-	<node pkg="tf" type="static_transform_publisher" name="map_to_paclidar"
-		args="0.0 0.0 0.1 0.0 0.0 0.0 map /paclidar_link 100" />
+	<!--<node pkg="tf" type="static_transform_publisher" name="map_to_paclidar"-->
+		<!--args="0.0 0.0 0.1 0.0 0.0 0.0 map /paclidar_link 100" />-->
 
 </launch>
