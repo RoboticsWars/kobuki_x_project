@@ -1,5 +1,5 @@
 <launch>
-  <arg name="custom_gmapping_launch_file" default="$(find turtlebot_navigation)/launch/includes/gmapping/gmapping.launch.xml"/>
+  <arg name="custom_gmapping_launch_file" default="$(find kobuki_x_bringup)/launch/paclidar_gmapping.launch.xml"/>
   <!-- Gmapping -->
   <include file="$(arg custom_gmapping_launch_file)"/>
 

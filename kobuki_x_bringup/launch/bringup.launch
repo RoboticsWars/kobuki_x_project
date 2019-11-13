@@ -5,9 +5,6 @@
 	  <arg name="base" value="kobuki" />
 	  <arg name="serialport" value="$(arg kobuki_serial_port)"/>
   </include>
-  <!-- Move base -->
-  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
-  </include>
 
   <include file="$(find kobuki_x_bringup)/launch/description.launch.xml"/>
 </launch>
