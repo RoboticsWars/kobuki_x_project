@@ -1,0 +1,67 @@
+<launch>
+  <arg name="scan_topic"  default="scan" />
+  <arg name="base_frame"  default="base_footprint"/>
+  <arg name="odom_frame"  default="odom"/>
+
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <param name="base_frame" value="$(arg base_frame)"/>
+    <param name="odom_frame" value="$(arg odom_frame)"/>
+    <!-- 地图更新时间 -->
+    <param name="map_update_interval" value="0.1"/>
+    <!-- 激光可探测最大探测距离 -->
+    <param name="maxUrange" value="10.0"/>
+    <!-- 传感器最大范围 -->
+    <param name="maxRange" value="10.0"/>
+    <!-- 端点匹配标准差 -->
+    <param name="sigma" value="0.1"/>
+    <!-- 在对应的内核中进行查找 -->
+    <param name="kernelSize" value="1"/>
+    <!-- 平移过程中的优化步长 -->
+    <param name="lstep" value="0.15"/>
+    <!-- 旋转过程中的优化步长 -->
+    <param name="astep" value="0.15"/>
+    <!-- 扫描匹配的迭代次数 -->
+    <param name="iterations" value="5"/>
+    <!-- 似然计算的激光标准差 -->
+    <param name="lsigma" value="0.1"/>
+    <!-- 似然计算时用于平滑重采样效果 -->
+    <param name="ogain" value="3.0"/>
+    <!-- 每次扫描跳过的光束数量 -->
+    <param name="lskip" value="1"/>
+    <!-- 扫描匹配结果的最低值 -->
+    <param name="minimumScore" value="50"/>
+    <!-- 里程计误差 -->
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
+    <!-- 机器人每平移该距离后处理一次激光雷达的数据 -->
+    <param name="linearUpdate" value="0.5"/>
+    <!-- 机器人每旋转该角度后处理一次激光雷达的数据 -->
+    <param name="angularUpdate" value="0.0436"/>
+    <param name="temporalUpdate" value="0.3"/>
+    <param name="resampleThreshold" value="0.5"/>
+    <!-- 滤波器中的粒子数量 -->
+    <param name="particles" value="10"/>
+  <!--
+    <param name="xmin" value="-50.0"/>
+    <param name="ymin" value="-50.0"/>
+    <param name="xmax" value="50.0"/>
+    <param name="ymax" value="50.0"/>
+  make the starting size small for the benefit of the Android client's memory...
+  -->
+    <!-- 初始地图大小 -->
+    <param name="xmin" value="-5.0"/>
+    <param name="ymin" value="-5.0"/>
+    <param name="xmax" value="5.0"/>
+    <param name="ymax" value="5.0"/>
+    <!-- 地图分辨率 -->
+    <param name="delta" value="0.02"/>
+    <!-- 似然计算的步长和距离 -->
+    <param name="llsamplerange" value="0.01"/>
+    <param name="llsamplestep" value="0.01"/>
+    <param name="lasamplerange" value="0.05"/>
+    <param name="lasamplestep" value="0.05"/>
+    <remap from="scan" to="$(arg scan_topic)"/>
+  </node>
+</launch>

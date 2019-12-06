@@ -1,25 +1,28 @@
 <launch>
   <arg name="kobuki_serial_port" default="/dev/kobuki"/>
+  <arg name="base" default="kobuki"/>
+  <arg name="stacks" default="circle_board"/>
   <arg name="lidar_type" default="$(env TURTLEBOT_3D_SENSOR)"/>
-  <arg if="$(eval arg('lidar_type') == 'kinect2_rplidar_s1')" name="rplidar_serial_port" default="/dev/rplidars1"/>
-  <arg if="$(eval arg('lidar_type') == 'kinect2_rplidar_a2')" name="rplidar_serial_port" default="/dev/rplidara2"/>
+  <arg name="3d_sensor" default="$(arg lidar_type)"/>
+  <arg if="$(eval 'rplidar_s1' in arg('lidar_type'))" name="rplidar_serial_port" default="/dev/rplidars1"/>
+  <arg if="$(eval 'rplidar_a2' in arg('lidar_type'))" name="rplidar_serial_port" default="/dev/rplidara2"/>
   <arg name="map_file" default="$(env TURTLEBOT_MAP_FILE)"/>
   <!--Bringups the base-->
   <include file="$(find turtlebot_bringup)/launch/includes/mobile_base.launch.xml">
-	  <arg name="base" value="kobuki" />
+	  <arg name="base" value="$(arg base)" />
 	  <arg name="serialport" value="$(arg kobuki_serial_port)"/>
   </include>
   <!--Launch the rplidar-->
-  <include if="$(eval arg('lidar_type') == 'kinect2_rplidar_a2')" file="$(find kobuki_x_description)/launch/rplidara2_for_kobuki_xs.launch">
+  <include if="$(eval 'rplidar_a2' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/rplidara2_for_kobuki_xs.launch">
     <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
   </include>
-  <include if="$(eval arg('lidar_type') == 'kinect2_rplidar_s1')" file="$(find kobuki_x_description)/launch/rplidars1_for_kobuki_xs.launch">
+  <include if="$(eval 'rplidar_s1' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/rplidars1_for_kobuki_xs.launch">
     <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
   </include>
-  <include if="$(eval arg('lidar_type') == 'kinect2_paclidar')" file="$(find kobuki_x_description)/launch/paclidar_for_kobuki_xs.launch">
+  <include if="$(eval 'paclidar' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/paclidar_for_kobuki_xs.launch">
   </include>
-  <!--Launch the kinect2 and convert pointcloud to laser-->
-  <include file="$(find kinect2_bridge)/launch/kinect2_cloudtolaser.launch"/>
+  <!--Launch the kinect2 and convert pointcloud to laser if it have kincet2-->
+  <include if="$(eval 'kinect2' in arg('lidar_type'))" file="$(find kinect2_bridge)/launch/kinect2_cloudtolaser.launch"/>
   <!-- Map server -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
   <!-- AMCL -->
@@ -34,7 +37,13 @@
   </include>
   <!-- Move base -->
   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
-  <include file="$(find kobuki_x_bringup)/launch/description.launch.xml"/>
+  
+  <!-- robot description -->
+  <include file="$(find kobuki_x_bringup)/launch/description.launch.xml">
+    <arg name="base" value="$(arg base)" />
+    <arg name="stacks" value="$(arg stacks)" />
+    <arg name="3d_sensor" value="$(arg 3d_sensor)" />
+  </include>
   <!-- For nav2djs to display robot -->
   <node name="robot_pose_publisher" pkg="robot_pose_publisher" type="robot_pose_publisher" />
 </launch>

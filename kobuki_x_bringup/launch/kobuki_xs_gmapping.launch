@@ -1,28 +1,57 @@
 <launch>
   <arg name="kobuki_serial_port" default="/dev/kobuki"/>
   <arg name="lidar_type" default="$(env TURTLEBOT_3D_SENSOR)"/>
-  <arg if="$(eval arg('lidar_type') == 'kinect2_rplidar_s1')" name="rplidar_serial_port" default="/dev/rplidars1"/>
-  <arg if="$(eval arg('lidar_type') == 'kinect2_rplidar_a2')" name="rplidar_serial_port" default="/dev/rplidara2"/>
-  <arg name="custom_gmapping_launch_file" default="$(find turtlebot_navigation)/launch/includes/gmapping/gmapping.launch.xml"/>
+  
+  <!-- 判断雷达的类型,选择不同的端口 -->
+  <arg if="$(eval 'rplidar_s1' in arg('lidar_type'))" name="rplidar_serial_port" default="/dev/rplidars1"/>
+  <arg if="$(eval 'rplidar_a2' in arg('lidar_type'))" name="rplidar_serial_port" default="/dev/rplidara2"/>
+  
+  <!-- 针对不同的雷达选取不同的gmapping启动文件（参数不同） -->
+  <!-- rplidar -->
+  <arg if="$(eval 'rplidar' in arg('lidar_type'))" name="custom_gmapping_launch_file" 
+            value="$(find kobuki_x_bringup)/launch/includes/gmapping/rplidar_gmapping.launch.xml"/>
+  <!-- paclidar -->
+  <arg if="$(eval 'paclidar' in arg('lidar_type'))" name="custom_gmapping_launch_file" 
+            value="$(find kobuki_x_bringup)/launch/includes/gmapping/paclidar_gmapping.launch.xml"/>
+  <!-- gmapping的启动文件，默认值 -->
+  <arg if="$(eval 'paclidar' not in arg('lidar_type') and 'rplidar' not in arg('lidar_type'))" 
+            name="custom_gmapping_launch_file" 
+            default="$(find turtlebot_navigation)/launch/includes/gmapping/gmapping.launch.xml"/>
+
   <!--Bringups the base-->
   <include file="$(find turtlebot_bringup)/launch/includes/mobile_base.launch.xml">
 	  <arg name="base" value="kobuki" />
 	  <arg name="serialport" value="$(arg kobuki_serial_port)"/>
   </include>
-  <!--Launch the rplidar A2-->
-  <include if="$(eval arg('lidar_type') == 'kinect2_rplidar_a2')" file="$(find kobuki_x_description)/launch/rplidara2_for_kobuki_xs.launch">
+
+  <!--根据参数启动雷达-->
+  <include if="$(eval 'rplidar_a2' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/rplidara2_for_kobuki_xs.launch">
     <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
   </include>
-  <include if="$(eval arg('lidar_type') == 'kinect2_rplidar_s1')" file="$(find kobuki_x_description)/launch/rplidars1_for_kobuki_xs.launch">
+
+  <include if="$(eval 'rplidar_s1' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/rplidars1_for_kobuki_xs.launch">
     <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
   </include>
-  <include if="$(eval arg('lidar_type') == 'kinect2_paclidar')" file="$(find kobuki_x_description)/launch/paclidar_for_kobuki_xs.launch">
+
+  <include if="$(eval 'paclidar' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/paclidar_for_kobuki_xs.launch">
   </include>
+
   <!-- Gmapping -->
   <include file="$(arg custom_gmapping_launch_file)"/>
+
   <!-- Move base -->
   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
   </include>
 
-  <include file="$(find kobuki_x_bringup)/launch/description.launch.xml"/>
+  <!-- robot description -->
+  <arg name="base" default="kobuki"/>
+  <arg name="stacks" default="circle_board"/>
+  <arg name="3d_sensor" default="$(arg lidar_type)"/>
+
+  <include file="$(find kobuki_x_bringup)/launch/description.launch.xml">
+    <arg name="base" value="$(arg base)" />
+    <arg name="stacks" value="$(arg stacks)" />
+    <arg name="3d_sensor" value="$(arg 3d_sensor)" />
+  </include>
+
 </launch>

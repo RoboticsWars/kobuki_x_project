@@ -14,6 +14,8 @@
         <param name="pc_port"     value="6000" />
         <param name="fps" value="10"/>
         <param name="frame_id" value="paclidar_link"/>
+        <param name="inverted"            type="bool"   value="true"/>
+        <param name="angle_compensate"    type="bool"   value="true"/>
         <param name="section_agl_start_1" value="0"/>
         <param name="section_agl_end_1" value="360"/>
 
@@ -37,7 +39,7 @@
 	<!-- </include> -->
 
 	<node pkg="tf" type="static_transform_publisher" name="base_link_to_paclidar"
-		args="0 0 0 0 0 0 base_link paclidar_link 50" />
+		args="0 0 0.62 -1.57079 0 0 base_link paclidar_link 100" />
 	<!--<node pkg="tf" type="static_transform_publisher" name="map_to_paclidar"-->
 		<!--args="0.0 0.0 0.1 0.0 0.0 0.0 map /paclidar_link 100" />-->
 
