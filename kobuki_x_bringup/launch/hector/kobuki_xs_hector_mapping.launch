@@ -1,0 +1,53 @@
+<launch>
+
+    <param name="/use_sim_time" value="false"/>
+
+    <!-- 启动rviz，加载hector的rviz配置文件 -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find hector_slam_launch)/rviz_cfg/mapping_demo.rviz"/>
+
+    <arg name="kobuki_serial_port" default="/dev/kobuki"/>
+    <arg name="lidar_type" default="$(env TURTLEBOT_3D_SENSOR)"/>
+    <!-- 判断雷达的类型,选择不同的端口 -->
+    <arg if="$(eval 'rplidar_s1' in arg('lidar_type'))" name="rplidar_serial_port" default="/dev/rplidars1"/>
+    <arg if="$(eval 'rplidar_a2' in arg('lidar_type'))" name="rplidar_serial_port" default="/dev/rplidara2"/>
+    <!--根据参数启动雷达-->
+    <include if="$(eval 'rplidar_a2' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/rplidara2_for_kobuki_xs.launch">
+        <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
+    </include>
+
+    <include if="$(eval 'rplidar_s1' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/rplidars1_for_kobuki_xs.launch">
+        <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
+    </include>
+
+    <include if="$(eval 'paclidar' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/paclidar_for_kobuki_xs.launch">
+    </include>
+    <!--Bringups the base-->
+    <include file="$(find turtlebot_bringup)/launch/includes/mobile_base.launch.xml">
+        <arg name="base" value="kobuki" />
+        <arg name="serialport" value="$(arg kobuki_serial_port)"/>
+    </include>
+
+    <!-- Move base -->
+    <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
+    </include>
+
+    <!-- robot description -->
+    <arg name="base" default="kobuki"/>
+    <arg name="stacks" default="circle_board"/>
+    <arg name="3d_sensor" default="$(arg lidar_type)"/>
+
+    <include file="$(find kobuki_x_bringup)/launch/description.launch.xml">
+        <arg name="base" value="$(arg base)" />
+        <arg name="stacks" value="$(arg stacks)" />
+        <arg name="3d_sensor" value="$(arg 3d_sensor)" />
+    </include>
+
+    <!-- 启动hector_mapping节点 -->
+    <include file="$(find kobuki_x_bringup)/launch/hector/hector_mapping_default.launch"/>
+
+
+    <include file="$(find kobuki_x_bringup)/launch/hector/geotiff_mapper.launch">
+        <arg name="trajectory_source_frame_name" value="scanmatcher_frame"/>
+    </include>
+
+</launch>
