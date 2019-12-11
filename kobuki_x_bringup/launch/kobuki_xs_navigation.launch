@@ -36,8 +36,10 @@
     <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
   </include>
   <!-- Move base -->
-  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
-  
+  <arg name="custom_param_file" default="$(find turtlebot_navigation)/param/costmap_common_params.yaml"/>
+  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
+    <arg name="custom_param_file" value="$(arg custom_param_file)"/>
+  </include>
   <!-- robot description -->
   <include file="$(find kobuki_x_bringup)/launch/description.launch.xml">
     <arg name="base" value="$(arg base)" />
