@@ -22,7 +22,7 @@
   <include if="$(eval 'paclidar' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/paclidar_for_kobuki_xs.launch">
   </include>
   <!--Launch the kinect2 and convert pointcloud to laser if it have kincet2-->
-  <include if="$(eval 'kinect2' in arg('lidar_type'))" file="$(find kinect2_bridge)/launch/kinect2_cloudtolaser.launch"/>
+  <!-- <include if="$(eval 'kinect2' in arg('lidar_type'))" file="$(find kinect2_bridge)/launch/kinect2_cloudtolaser.launch"/> -->
   <!-- Map server -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
   <!-- AMCL -->
