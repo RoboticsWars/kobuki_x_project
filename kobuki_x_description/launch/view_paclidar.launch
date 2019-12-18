@@ -1,0 +1,6 @@
+
+<launch>
+    <include file="$(find kobuki_x_description)/launch/paclidar_for_kobuki_xs.launch" />
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find kobuki_x_description)/launch/rviz/paclidar.rviz" />
+</launch>
