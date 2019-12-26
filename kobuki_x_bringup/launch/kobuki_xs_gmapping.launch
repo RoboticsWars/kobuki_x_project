@@ -36,6 +36,9 @@
   <include if="$(eval 'paclidar' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/paclidar_for_kobuki_xs.launch">
   </include>
 
+  <include if="$(eval arg('lidar_type')=='kinect2')" file="$(find kinect2_bridge)/launch/kinect2_laser.launch">
+  </include>
+
   <!-- Gmapping -->
   <include file="$(arg custom_gmapping_launch_file)"/>
 
