@@ -6,6 +6,7 @@
   <arg name="3d_sensor" default="$(arg lidar_type)"/>
   <arg if="$(eval 'rplidar_s1' in arg('lidar_type'))" name="rplidar_serial_port" default="/dev/rplidars1"/>
   <arg if="$(eval 'rplidar_a2' in arg('lidar_type'))" name="rplidar_serial_port" default="/dev/rplidara2"/>
+  <arg if="$(eval 'ldslidar' in arg('lidar_type'))" name="ldslidar_serial_port" default="/dev/rplidara2"/>
   <arg name="map_file" default="$(env TURTLEBOT_MAP_FILE)"/>
   <!--Bringups the base-->
   <include file="$(find turtlebot_bringup)/launch/includes/mobile_base.launch.xml">
@@ -20,6 +21,9 @@
     <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
   </include>
   <include if="$(eval 'paclidar' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/paclidar_for_kobuki_xs.launch">
+  </include>
+  <include if="$(eval 'ldslidar' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/ldslidar_for_kobuki_xs.launch">
+    <arg name="ldslidar_serial_port" value="$(arg ldslidar_serial_port)"/>
   </include>
   <!--Launch the kinect2 and convert pointcloud to laser if it have kincet2-->
   <include if="$(eval 'kinect2' in arg('lidar_type'))" file="$(find kinect2_bridge)/launch/kinect2_cloudtolaser.launch"/>
