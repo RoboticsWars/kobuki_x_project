@@ -5,7 +5,7 @@
   <!-- 判断雷达的类型,选择不同的端口 -->
   <arg if="$(eval 'rplidar_s1' in arg('lidar_type'))" name="rplidar_serial_port" default="/dev/rplidars1"/>
   <arg if="$(eval 'rplidar_a2' in arg('lidar_type'))" name="rplidar_serial_port" default="/dev/rplidara2"/>
-  <arg if="$(eval 'ldslidar' in arg('lidar_type'))" name="rplidar_serial_port" default="/dev/rplidara2"/>
+  <arg if="$(eval 'ldslidar' in arg('lidar_type'))" name="ldslidar_serial_port" default="/dev/rplidara2"/>
   
   <!-- 针对不同的雷达选取不同的gmapping启动文件（参数不同） -->
   <!-- rplidar -->
@@ -41,7 +41,7 @@
   </include>
 
   <include if="$(eval 'ldslidar' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/ldslidar_for_kobuki_xs.launch">
-    <arg name="ldslidar_serial_port" value="$(arg rplidar_serial_port)"/>
+    <arg name="ldslidar_serial_port" value="$(arg ldslidar_serial_port)"/>
   </include>
 
   <include if="$(eval arg('lidar_type')=='kinect2')" file="$(find kinect2_bridge)/launch/kinect2_laser.launch">
