@@ -1,0 +1,10 @@
+<launch>
+    <arg name="ldslidar_serial_port" default="/dev/rplidara2"/>
+
+    <node pkg="hls_lfcd_lds_driver" type="hlds_laser_publisher" name="hlds_laser_publisher" output="screen">
+        <param name="port" value="$(arg ldslidar_serial_port)"/>
+        <param name="frame_id" value="laser"/>
+    </node>
+
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_ldslidar" args="0 0 0.62 0 0 0 base_link laser 50" />
+</launch>
