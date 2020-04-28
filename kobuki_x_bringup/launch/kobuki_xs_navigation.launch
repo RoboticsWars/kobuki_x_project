@@ -20,7 +20,7 @@
   <include if="$(eval 'rplidar_s1' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/rplidars1_for_kobuki_xs.launch">
     <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)"/>
   </include>
-  <include if="$(eval 'paclidar' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/paclidar_for_kobuki_xs.launch">
+  <include if="$(eval 'paclidar' in arg('lidar_type'))" file="$(find lidar_driver)/launch/lidar_bringup.launch">
     <arg name="angle_offset" default="90" />
   </include>
   <include if="$(eval 'ldslidar' in arg('lidar_type'))" file="$(find kobuki_x_description)/launch/ldslidar_for_kobuki_xs.launch">

@@ -14,6 +14,9 @@
         <param name="device_port" value="5000" />
         <param name="pc_port"     value="6000" />
         <param name="fps" value="10"/>
+
+        <param name="data_type" value="1"/>
+
         <param name="frame_id" value="paclidar_link"/>
         <param name="angle_compensate"    type="bool"   value="true"/>
         <param name="section_agl_start_1" value="0"/>
